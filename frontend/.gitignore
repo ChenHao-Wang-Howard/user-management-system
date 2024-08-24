@@ -1,0 +1,48 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node.js dependencies
+node_modules/
+
+# Output directories
+dist/
+dist-ssr/
+coverage/
+
+# IDE directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporary files
+*.tsbuildinfo
+*.tmp
+*.temp
+
+# Cypress
+/cypress/videos/
+/cypress/screenshots/
+
+# Operating system files
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.DS_Store
+
+# Environment files
+.env
+
+# Cache and temporary files
+.eslintcache
+.babel.json

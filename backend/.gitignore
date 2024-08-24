@@ -1,0 +1,53 @@
+# Logs
+logs/
+*.log
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Gradle
+.gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Eclipse
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.apt_generated
+.sts4-cache
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# General temporary files
+*.tmp
+*.temp
+
+# JVM crash logs
+hs_err_pid*
