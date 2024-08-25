@@ -1,10 +1,10 @@
 package com.howard.backend.controller;
 
+import com.howard.backend.model.JwtResponse;
 import com.howard.backend.model.User;
 import com.howard.backend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,13 +23,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> loginUser(@RequestBody User user) {
-        Optional<User> loggedInUser = userService.loginUser(user.getUsername(), user.getPassword());
-        if (loggedInUser.isPresent()) {
-            return ResponseEntity.ok(loggedInUser.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+    public ResponseEntity<?> loginUser(@RequestBody User user) {
+        String jwt = userService.loginUser(user.getUsername(), user.getPassword());
+        return ResponseEntity.ok(new JwtResponse(jwt));
     }
 
     @GetMapping("/{id}")

@@ -1,4 +1,4 @@
-package com.howard.backend.service;
+package com.howard.backend.service.impl;
 
 import com.howard.backend.model.User;
 import com.howard.backend.repository.UserRepository;
@@ -17,17 +17,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private Optional<User> user;
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isPresent()) {
+            return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), new ArrayList<>());
+        } else {
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        User user_find = user.get();
-        return new org.springframework.security.core.userdetails.User(user_find.getUsername(), user_find.getPassword(), new ArrayList<>());
     }
 }
-

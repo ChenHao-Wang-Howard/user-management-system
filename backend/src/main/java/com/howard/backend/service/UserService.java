@@ -6,6 +6,6 @@ import java.util.Optional;
 
 public interface UserService {
     User registerUser(User user);
-    Optional<User> loginUser(String username, String password);
+    String loginUser(String username, String password); // 修改了返回類型為 String
     Optional<User> getUserById(Long id);
 }

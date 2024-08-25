@@ -2,8 +2,14 @@ package com.howard.backend.service.impl;
 
 import com.howard.backend.model.User;
 import com.howard.backend.repository.UserRepository;
+import com.howard.backend.security.JwtService;
 import com.howard.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,6 +25,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     public User registerUser(User user) {
         // 檢查欄位是否為空
@@ -31,23 +46,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> loginUser(String username, String password) {
-        Optional<User> optionalUser = userRepository.findByUsername(username);
-        if (optionalUser.isPresent()) {
-            User user_find = optionalUser.get();
-            if (passwordEncoder.matches(password, user_find.getPassword())) {
-                return optionalUser;
-            }
+    public String loginUser(String username, String password) {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password)
+            );
+        } catch (BadCredentialsException e) {
+            throw new BadCredentialsException("用戶名或密碼錯誤");
         }
-        return Optional.empty();
+
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        return jwtService.generateToken(userDetails);
     }
+
     @Override
     public Optional<User> getUserById(Long id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-
-        if (optionalUser.isPresent()) {
-            return optionalUser;
-        }
-        return Optional.empty();
+        return userRepository.findById(id);
     }
 }

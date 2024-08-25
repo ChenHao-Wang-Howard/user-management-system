@@ -32,7 +32,7 @@ user-management-system/
 │   │   ├── views/              # 視圖頁面
 │   │   └── App.vue             # 主應用組件
 │   ├── package.json            # 前端依賴配置文件
-└── README.md                   # 項目說明文件
+└── README.md                   # 專案說明文件
 ```
 
 ## 目前已完成的技術
