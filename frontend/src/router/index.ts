@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, type RouteLocationNormalized } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Register from '../views/RegisterView.vue'
 import Login from '../views/LoginView.vue'
 import UserProfile from '../views/UserProfile.vue'
@@ -9,11 +9,7 @@ const routes = [
   {
     path: '/user/:id',
     component: UserProfile,
-    props: (route: RouteLocationNormalized) => ({
-      id: route.params.id,
-      username: route.query.username,
-      password: route.query.password
-    })
+    props: true // 自動將 route.params 作為 props 傳遞給 UserProfile 組件
   }
 ]
 

@@ -1,4 +1,3 @@
-// UserProfile.vue
 <template>
     <div>
         <h2>用戶信息</h2>
@@ -11,21 +10,16 @@
 import { getUserById } from '../api';
 
 export default {
-    props: ['id', 'username', 'password'],
+    props: ['id'],
     data() {
         return {
             user: {}
         };
     },
     async created() {
+        console.log('User profile get ID:', this.id);
         try {
-            const username = this.$route.query.username;
-            const password = this.$route.query.password;
-
-            console.log('Fetching user data with ID:', this.id);
-            console.log('Using credentials - Username:', this.username, 'Password:', this.password);
-
-            const response = await getUserById(this.id, this.username, this.password);
+            const response = await getUserById(this.id); // 使用攔截器自動添加 token
             console.log('API Response:', response);
             this.user = response.data;
         } catch (error) {

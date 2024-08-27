@@ -1,4 +1,3 @@
-// LoginView.vue
 <template>
     <div>
         <h2>登入</h2>
@@ -28,14 +27,12 @@ export default {
                 console.log('Attempting to log in with user:', this.user);
                 const response = await loginUser(this.user);
                 console.log('Login successful, response:', response);
-                // 使用 query
-                this.$router.push({
-                    path: `/user/${response.data.id}`,
-                    query: {
-                        username: this.user.username,
-                        password: this.user.password
-                    }
-                });
+
+
+
+                // 將用戶 ID 傳遞到 UserProfile.vue
+                console.log('Pushing ID:', response.data.userId);
+                this.$router.push(`/user/${response.data.userId}`);
             } catch (error) {
                 console.error('Login failed:', error);
                 console.log('Error details:', {

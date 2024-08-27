@@ -1,6 +1,6 @@
 package com.howard.backend.controller;
 
-import com.howard.backend.model.JwtResponse;
+import com.howard.backend.dto.JwtResponse;
 import com.howard.backend.model.User;
 import com.howard.backend.service.UserService;
 import jakarta.validation.Valid;
@@ -24,8 +24,9 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
-        String jwt = userService.loginUser(user.getUsername(), user.getPassword());
-        return ResponseEntity.ok(new JwtResponse(jwt));
+        // 調用 userService 的 loginUser 方法，這個方法現在返回 JwtResponse
+        JwtResponse jwt = userService.loginUser(user.getUsername(), user.getPassword());
+        return ResponseEntity.ok(jwt);
     }
 
     @GetMapping("/{id}")

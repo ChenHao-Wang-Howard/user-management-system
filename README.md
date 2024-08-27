@@ -18,8 +18,8 @@ user-management-system/
 │   │   │   │       ├── service/       # 服務層，業務邏輯
 │   │   │   │       └── service/impl/  # 服務層實現
 │   │   │   └── resources/
-│   │   │       ├── application.properties  # 應用配置文件
-│   │   │       └── ehcache.xml      # Ehcache 配置（如使用 Ehcache）
+│   │   │       └── application.properties  # 應用配置文件
+│   │   │       
 │   ├── pom.xml                      # Maven 配置文件
 ├── frontend/                   # 前端 Vue 3 專案
 │   ├── public/
@@ -45,8 +45,9 @@ user-management-system/
 4. **Hibernate**: 配置了 Hibernate 進行 ORM 映射。
 5. **Log4j/SLF4J**: 使用 Log4j 或 SLF4J 進行日誌記錄。
 6. **CORS 配置**: 配置了 CORS 來允許跨域請求。
-7. **Ehcache/Caffeine**: 實現了簡單的緩存（如需要）。
+7. **Ehcache**: 實現了簡單的緩存。
 8. **OpenAPI (Swagger)**: 提供 API 文檔生成。
+9. **JWT 認證完成**: 完成 JWT token 的生成和驗證流程。
 
 ### 前端
 
@@ -54,21 +55,18 @@ user-management-system/
 2. **Pinia**: 狀態管理，用於管理全局狀態。
 3. **Vue Router**: 設置了基本的路由結構。
 4. **Axios**: 用於與後端 API 進行 HTTP 請求。
-5. **JWT 認證**: 設置了基於 JWT 的前端認證機制（待完善）。
+5. **JWT 認證**: 設置了基於 JWT 的前端認證機制。
 
 ## 未來計畫的技術
 
 1. **角色和權限管理**: 配置基於角色的權限控制。
-2. **前端完整的 UI/UX 優化**: 使用 Vuetify 或 Ant Design Vue 進行頁面設計。
-3. **JWT 認證完成**: 完成 JWT token 的生成和驗證流程。
-4. **API 安全性加強**: 加強 API 安全性，包括使用 JWT token 進行認證。
-5. **自動化測試和部署**: 使用 GitHub Actions 進行 CI/CD，並將項目部署到雲端（AWS 或 Azure）。
+2. **自動化測試和部署**: 使用 GitHub Actions 進行 CI/CD，並將項目部署到雲端（AWS 或 Azure）。
 
 ## 安裝與運行
 
 ### 後端
 
-1. **克隆儲存庫**：
+1. **clone Repo**：
     ```bash
     git clone https://github.com/Howard-yzu/user-management-system.git
     cd user-management-system/backend

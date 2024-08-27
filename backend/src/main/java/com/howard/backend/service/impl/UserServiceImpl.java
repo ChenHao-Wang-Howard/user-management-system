@@ -1,5 +1,6 @@
 package com.howard.backend.service.impl;
 
+import com.howard.backend.dto.JwtResponse;
 import com.howard.backend.model.User;
 import com.howard.backend.repository.UserRepository;
 import com.howard.backend.security.JwtService;
@@ -10,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -46,7 +48,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String loginUser(String username, String password) {
+    public JwtResponse loginUser(String username, String password) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
@@ -56,7 +58,11 @@ public class UserServiceImpl implements UserService {
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        return jwtService.generateToken(userDetails);
+        String jwtToken = jwtService.generateToken(userDetails);
+        Long userId = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("用戶名未找到"))
+                .getId();
+        return new JwtResponse(jwtToken, userId);
     }
 
     @Override
